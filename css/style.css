@@ -48,9 +48,9 @@ header{
 
 }
 .logo{
-    font-size: 1,1rem;
+    font-size: 4,2rem;
     color: var(--texto-color);
-    font-weight: 400;
+    font-weight: 600;
 }
 #carrinho-icone{
     font-size: 1.8rem;
@@ -61,7 +61,7 @@ header{
 .carrinho{
     position: fixed;
     top: 0;
-    right: 0%;
+    right: -100%;
     width: 550px;
     min-height: 100vh;
     padding: 20px;
@@ -199,4 +199,17 @@ header{
 }
 .add-carrinho:houver{
     background: hsl(0, 72%, 25%);
+}
+/*teste*/
+@media (max-width: 1080px){
+    .nav{
+        padding: 15px;
+    }
+    .section{
+        padding: 3rem 0 2rem;
+    }
+    .container{
+        margin: 0 auto;
+        width: 90%;
+    }
 }

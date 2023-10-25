@@ -39,6 +39,19 @@ function ready(){
         var button = addCart[i];
         button.addEventListener("click", addcartclicked);
     }
+    // acionando botao de comprar
+    document
+        .getElementsByClassName("btn-comprar")[0]
+        .addEventListener("click", buyButtonClicked);
+}
+//botao de compra
+function buyButtonClicked(){
+    alert("Seu pedido foi Realizado");
+    var cartContent = document.getElementsByClassName("carrinho-content")[0];
+    while (cartContent.hasChildNodes()){
+        cartContent.removeChild(cartContent.firstChild);
+    }
+    updatetotal();
 }
 
 //remover itens do carrinho
@@ -65,37 +78,46 @@ function addcartclicked(event){
     addPoductToCart(title, price,  productImg);
     updatetotal();
 }
-function addPoductToCart(title, price,  productImg) {
-    var cartShopBox = document.createElement("div");
-    cartShopBox.classList.add("carrinho-box");
+function addPoductToCart(title, price, productImg) {
     var cartItems = document.getElementsByClassName("carrinho-content")[0];
     var cartItemsNames = cartItems.getElementsByClassName("carrinho-produto-titulo");
+    var itemAlreadyInCart = false;
+
     for (var i = 0; i < cartItemsNames.length; i++) {
-        if (cartItemsNames [i].innerText == title)
-        alert("Você já adicionou este item ao carrinho.");
-        return;
+        if (cartItemsNames[i].innerText == title) {
+            itemAlreadyInCart = true;
+            break; // Sair do loop quando um item com o mesmo título for encontrado
+        }
     }
+
+    if (itemAlreadyInCart) {
+        alert("Você já adicionou este item ao carrinho.");
+    } else {
+        var cartShopBox = document.createElement("div");
+        cartShopBox.classList.add("carrinho-box");
+
+        var cartBoxContent = `
+            <img src="${productImg}" alt="" class="carrinho-img">
+            <div class="detail-box">
+                <div class="carrinho-produto-titulo">${title}</div>
+                <div class="carrinho-preco">${price}</div>
+                <input type="number" value="1" class="carrinho-quantidade">
+            </div> 
+            <!--remover do carrinho--> 
+            <i class='bx bxs-trash-alt remover-carrinho'></i>`;
+
+        cartShopBox.innerHTML = cartBoxContent;
+        cartItems.append(cartShopBox);
+        cartShopBox
+            .getElementsByClassName("remover-carrinho")[0]
+            .addEventListener("click", removecartitem);
+        cartShopBox
+            .getElementsByClassName("carrinho-quantidade")[0]
+            .addEventListener("change", quantityCharged);
+    }
+
+    updatetotal();
 }
-var cartBoxContent =`
-    <img src="img/camisa_furia.jpg" alt="" class="carrinho-img">
-    <div class="detail-box">
-        <div class="carrinho-produto-titulo">Camisa Fruria</div>
-        <div class="carrinho-preco">R$260</div>
-        <input type="number" value="1" class="carrinho-quantidade">
-    </div> 
-    <!--remover do carrinho--> 
-    <i class='bx bxs-trash-alt remover-carrinho'></i>`;
-
-cartShopBox.innerHTML = cartBoxContent;
-cartItems.append(cartShopBox);
-cartShopBox
-.getElementsByClassName("remover-carrinho")[0]
-.addEventListener("click", removecartitem);
-cartShopBox
-.getElementsByClassName("carrinho-quantidade")[0]
-.addEventListener("change", quantityCharged);
-
-
 
 //atualizar total
 function updatetotal(){
@@ -109,7 +131,8 @@ function updatetotal(){
         var preco = parseFloat(priceElement.innerText.replace("R$", ""));
         var quantity = quantityElement.value;
         total= total + (preco * quantity);
+    }
 
         document.getElementsByClassName("preco-total")[0].innerText = "R$" + total;
-    }
+    
 }
