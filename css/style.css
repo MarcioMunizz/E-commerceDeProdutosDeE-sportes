@@ -212,4 +212,26 @@ header{
         margin: 0 auto;
         width: 90%;
     }
+    .carrinho{
+        margin-top: 2rem !important;
+    }
+}
+@media (max-width: 400px){
+    .nav{
+        padding: 11px;
+    }
+    .logo{
+        font-size: 1rem;
+    }
+    .cart{
+        width: 320px;
+    }
+}
+@media (max-width: 360px){
+    .carrinho{
+        margin-top: 1rem !important;
+    }
+    .cart{
+        width: 280px;
+    }
 }
