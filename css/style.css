@@ -68,6 +68,8 @@ header{
     background-color: var(--fundo-color);
     box-shadow:  -5px 0px 8px hsl(0 4%  15% / 10% );
     transition: 0.3s;
+    max-height: 80vh;
+    overflow: auto;
 }
 .ativar.carrinho{
     right: 0;
